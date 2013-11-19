@@ -2,6 +2,7 @@ package compiler.IR;
 
 import java.util.HashSet;
 import java.util.LinkedList;
+import java.util.ListIterator;
 
 import compiler.PrettyPrinter;
 import compiler.CODE.CODE;
@@ -70,13 +71,15 @@ public class MJMethodCallStmt extends MJStatement {
 			sel = (MJSelector) this.method;
 		}
 		
-		int position = 0;
-		for (MJExpression arg : arglist) {
-			arg = arg.rewriteTwo();
-			arglist.add(position, arg);
-			arglist.remove(position+1);
-		}
+		ListIterator<MJExpression> iter = arglist.listIterator();
+		MJExpression arg;
 		
+		while (iter.hasNext()) {
+			arg = iter.next();
+			arg = arg.rewriteTwo();
+			iter.set(arg);
+		}
+				
 		// now we add a this argument to non-static method calls
 		
 		if (!this.target.isStatic()) {
