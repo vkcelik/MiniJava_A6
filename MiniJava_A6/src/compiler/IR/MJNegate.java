@@ -20,30 +20,35 @@ public class MJNegate extends MJUnaryOp {
 	}
 
 	MJType typeCheck() throws TypeCheckerException {
-		
+
 		// type check the argument
-		
+
 		this.type = this.arg.typeCheck();
-		
+
 		// which must have type boolean
-		
+
 		if (!this.type.isBoolean()) {
 			new TypeCheckerException("Argument of ! must have type boolean");
 		}
-		
+
 		return this.type;
 	}
 
 	void variableInit(HashSet<MJVariable> initialized)
 			throws TypeCheckerException {
-		
+
 		// just check the argument
-		
+
 		this.arg.variableInit(initialized);
 	}
 
 	public void generateCode(CODE code) throws CodeGenException {
 		code.comment(" NEGATE BEGIN ");
+		code.commentline("NOT");
+		this.arg.generateCode(code);
+		code.pop(CODE.TMP0);
+		code.add(new LC3NOT(CODE.TMP0, CODE.TMP1));
+		code.push(CODE.TMP0);
 		code.comment(" NEGATE END ");
 	}
 

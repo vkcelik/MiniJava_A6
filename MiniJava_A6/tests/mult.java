@@ -1,9 +1,11 @@
 class testmain {
-	
+
 	public static void main(String[] args) {
-		A a = new A();
-		int x = 6*a.test();		
-                System.out.println(x);
+		A a;
+		int x;
+		a = new A();
+		x = 6 * a.test();
+		System.out.println(x);
 	}
 }
 
