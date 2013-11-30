@@ -75,6 +75,9 @@ public class MJIf extends MJStatement {
 	public void generateCode(CODE code) throws CodeGenException {
 		
 		code.comment(" IF ");
+		this.condition.generateCode(code);
+		code.pop(CODE.TMP0);
+		code.add(new LC3BRNZ(l));
 		code.comment(" IF END ");
 	}
 }
