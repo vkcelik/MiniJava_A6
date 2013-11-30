@@ -55,7 +55,12 @@ public class MJMult extends MJBinaryOp {
 
 		LC3label cont = code.newLabel();
 		code.comment(" MULT BEGIN ");
+		code.commentline(" ADD lhs ");
+		this.lhs.generateCode(code);
+		code.commentline(" ADD rhs ");
+		this.rhs.generateCode(code);
+		code.pop2(CODE.TMP0, CODE.TMP1);
+		code.add(new LC3AND(CODE.CONST0, CODE.CONST1,0));
 		code.comment(" MULT END ");
 	}
-
 }
