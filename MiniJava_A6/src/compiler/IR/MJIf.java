@@ -77,7 +77,9 @@ public class MJIf extends MJStatement {
 		code.comment(" IF ");
 		this.condition.generateCode(code);
 		code.pop(CODE.TMP0);
-		code.add(new LC3BRNZ(l));
+		LC3label false_label = code.newLabel();
+		this.thenblock.generateCode(code);
+		code.add(new LC3BRNZ(false_label));
 		code.comment(" IF END ");
 	}
 }
