@@ -79,7 +79,7 @@ public class MJIf extends MJStatement {
 		code.pop(CODE.TMP0);
 		LC3label false_label = code.newLabel();
 		this.thenblock.generateCode(code);
-		code.add(new LC3BRNZ(false_label));
+		code.add(new LC3BRNZ(false_label));		
 		code.comment(" IF END ");
 	}
 }
