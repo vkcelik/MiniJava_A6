@@ -47,7 +47,7 @@ public class MJNegate extends MJUnaryOp {
 		code.commentline("NOT");
 		this.arg.generateCode(code);
 		code.pop(CODE.TMP0);
-		code.add(new LC3NOT(CODE.TMP0, CODE.TMP1));
+		code.add(new LC3NOT(CODE.TMP0, CODE.TMP0));
 		code.push(CODE.TMP0);
 		code.comment(" NEGATE END ");
 	}

@@ -55,13 +55,14 @@ public class MJMinus extends MJBinaryOp {
 		this.lhs.generateCode(code);
 		code.commentline(" ADD rhs ");
 		this.rhs.generateCode(code);
-		code.pop2(CODE.TMP1, CODE.TMP0);
-		//LD R1
-		//LD R2
-		//NOT R2, R2
-		//ADD R2, R2 , #1
-		//ADD R3, R1, R2
-		
+		code.pop2(CODE.TMP0, CODE.TMP1);
+		code.comment(" making rhs negative ");
+		code.add(new LC3NOT(CODE.TMP1, CODE.TMP1));
+		code.add(new LC3ADD(CODE.TMP1, CODE.TMP1, 1));
+		code.comment(" lhs = lhs + (-rhs) ");
+		code.add(new LC3ADD(CODE.TMP0, CODE.TMP0, CODE.TMP1));
+		code.commentline(" putting result on the stack ");
+		code.push(CODE.TMP0);
 		code.comment(" MINUS END ");
 	}
 
