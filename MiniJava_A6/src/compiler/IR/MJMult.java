@@ -53,14 +53,25 @@ public class MJMult extends MJBinaryOp {
 
 	public void generateCode(CODE code) throws CodeGenException {
 
-		LC3label cont = code.newLabel();
+		LC3label plusLoop = code.newLabel();
 		code.comment(" MULT BEGIN ");
 		code.commentline(" ADD lhs ");
 		this.lhs.generateCode(code);
 		code.commentline(" ADD rhs ");
 		this.rhs.generateCode(code);
 		code.pop2(CODE.TMP0, CODE.TMP1);
-		code.add(new LC3AND(CODE.CONST0, CODE.CONST1,0));
+		code.commentline(" sum = 0 ");
+		code.add(new LC3AND(CODE.RET, CODE.RET, 0));
+		code.commentline(" add label for loop ");
+		code.add(plusLoop);
+		code.commentline(" sum = sum + multiplikator ");
+		code.add(new LC3ADD(CODE.RET, CODE.RET, CODE.TMP0));
+		code.commentline(" multiplikand = multiplikand + (-1) ");
+		code.add(new LC3ADD(CODE.TMP1, CODE.TMP1, -1));
+		code.commentline(" jump to loop while multiplikand > 0 ");
+		code.add(new LC3BRP(plusLoop));
+		code.commentline(" push result on stack ");
+		code.push(CODE.RET);
 		code.comment(" MULT END ");
 	}
 }
