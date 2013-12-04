@@ -45,9 +45,11 @@ public class MJNegate extends MJUnaryOp {
 	public void generateCode(CODE code) throws CodeGenException {
 		code.comment(" NEGATE BEGIN ");
 		code.commentline("NOT");
+	
 		this.arg.generateCode(code);
 		code.pop(CODE.TMP0);
 		code.add(new LC3NOT(CODE.TMP0, CODE.TMP0));
+		code.add(new LC3ADD(CODE.TMP0, CODE.TMP0,1));
 		code.push(CODE.TMP0);
 		code.comment(" NEGATE END ");
 	}

@@ -77,6 +77,7 @@ public class MJIfElse extends MJIf {
 	public void generateCode(CODE code) throws CodeGenException {
 		
 		code.comment(" IF/ELSE ");
+		
 		code.comment(" IF/ELSE END ");
 	}
 }
