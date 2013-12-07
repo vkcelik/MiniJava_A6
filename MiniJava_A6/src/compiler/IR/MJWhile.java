@@ -70,8 +70,17 @@ public class MJWhile extends MJStatement {
 	}
 
 	public void generateCode(CODE code) throws CodeGenException {
-
+		LC3label eval_cond = code.newLabel();
+		LC3label block_end = code.newLabel();
+		
 		code.comment(" WHILE BEGIN ");
+		code.add(eval_cond);
+		this.condition.generateCode(code);
+		code.pop(CODE.TMP0);
+		code.add(new LC3BRZ(block_end));
+		this.body.generateCode(code);
+		code.add(new LC3BRNZP(eval_cond));
+		code.add(block_end);
 		code.comment(" WHILE END");
 	}
 
